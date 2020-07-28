@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { Button } from 'native-base';
 
 export default function AddTodo({ submitHandler }) {
     const [text, setText] = useState('');
@@ -9,17 +10,21 @@ export default function AddTodo({ submitHandler }) {
 
     return (
         <View style={styles.form}>
-            <Text >Add todos</Text>
+            <Text style={{ fontSize: 24, textTransform: 'uppercase', color: '#555'}}>New Task</Text>
+            <Text style={{paddingBottom: 20, fontSize: 10, color: '#aaa', paddingLeft: 18, }}> Please type valid name for new task and submit!</Text>
             <TextInput
                 style={styles.input}
-                placeholder='new Todo...'
+                placeholder='Please type here...'
                 onChangeText={changeHandler}
+                value={text}
                 />
             <Button
-                onPress={() => submitHandler(text)}
-                title='Add Todo'
-                color='coral'
-                />
+                onPress={() => {submitHandler(text); setText('')}}
+                warning
+                full
+                >
+                <Text style={{color: '#fff', fontSize: 18, textTransform: 'uppercase' }}> Submit </Text>
+            </Button>
         </View>
 
     )
@@ -27,13 +32,17 @@ export default function AddTodo({ submitHandler }) {
 
 const styles = StyleSheet.create({
     form: {
-
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 20,
+        width: '90%',
+        height: '100%'
     },
     input: {
-        marginBottom: 10,
+        marginBottom: 20,
         paddingHorizontal: 8,
         paddingVertical: 8,
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderBottomColor: '#ddd'
     }
 });
